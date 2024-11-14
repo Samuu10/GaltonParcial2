@@ -1,0 +1,13 @@
+package com.proyecto.galtonparcial2;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class GaltonParcial2Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(GaltonParcial2Application.class, args);
+	}
+
+}
