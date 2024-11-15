@@ -1,5 +1,6 @@
 package com.proyecto.galtonparcial2.model;
 
+import com.proyecto.galtonparcial2.view.Visualizacion;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -54,7 +55,7 @@ public class Bola implements Componente, Runnable {
                     int containerX = containerIndex * 40 + 60;
                     shape.setLayoutX(containerX);
                     shape.setLayoutY(400);
-                    //Aquí se actualizaría el histograma
+                    Visualizacion.getInstance().actualizarHistograma(containerIndex);
                 } else {
                     System.out.println("Error: containerIndex fuera de límites.");
                 }
