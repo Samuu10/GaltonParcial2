@@ -16,37 +16,51 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 
+//Clase principal de la aplicación
 @SpringBootApplication
 public class GaltonParcial2Application {
 
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(GaltonParcial2Application.class, args);
 
+		//Creamos un buffer de componentes
 		BlockingQueue<Componente> buffer = context.getBean(BlockingQueue.class);
+		//Creamos un latch (cerrojo) para sincronizar la producción de bolas
 		CountDownLatch latch = new CountDownLatch(1);
 
+		//Creamos una estación de trabajo de tipo bola
 		EstacionTrabajoBola estacionTrabajoBola = new EstacionTrabajoBola(buffer, context.getBean(Sender.class), latch);
+		//Creamos una estación de trabajo de tipo tablero
 		EstacionTrabajoTablero estacionTrabajoTablero = new EstacionTrabajoTablero(buffer, context.getBean(Sender.class), latch);
 
+		//Creamos una lista de estaciones de trabajo y le agregamos las estaciones de trabajo de tipo bola y tablero
 		List<EstacionTrabajo> estacionesTrabajo = Arrays.asList(estacionTrabajoBola, estacionTrabajoTablero);
 
+		//Creamos un latch (cerrojo) para la visualización
 		CountDownLatch visualizacionLatch = new CountDownLatch(1);
+		//Iniciamos la visualización en un hilo aparte
 		new Thread(() -> Visualizacion.iniciarVisualizacion(new String[]{}, visualizacionLatch)).start();
 
+		//Esperamos a que la visualización se inicie
 		try {
 			visualizacionLatch.await();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
+		//Creamos un ensamblador
 		Ensamblador ensamblador = context.getBean(Ensamblador.class);
+		//Creamos un planificador de producción de componentes
 		Scheduler scheduler = new Scheduler(estacionesTrabajo);
 
-		// Crear un tablero y 100 bolas
+		//Creamos un tablero
 		estacionTrabajoTablero.crearComponente();
+
+		//Creamos 100 bolas
 		estacionTrabajoBola.setCantidad(100);
 		estacionTrabajoBola.crearComponente();
 
+		//Iniciamos la producción de componentes
 		new Thread(scheduler::startProduction).start();
 	}
 }

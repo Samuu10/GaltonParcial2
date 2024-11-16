@@ -24,6 +24,7 @@ public class SchedulerController {
     //Metodo que inicia el planificador
     @PostMapping("/start")
     public Mono<String> startScheduler() {
+        //Se devuelve un mono que se ejecuta de manera asíncrona y se encarga de iniciar el planificador
         return Mono.fromCallable(() -> {
             new Thread(scheduler::startProduction).start();
             return "Scheduler iniciado";

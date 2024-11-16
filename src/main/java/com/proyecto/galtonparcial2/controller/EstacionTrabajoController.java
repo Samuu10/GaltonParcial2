@@ -28,6 +28,7 @@ public class EstacionTrabajoController {
     //Metodo que inicia la producción de bolas
     @PostMapping("/producir-bolas")
     public Mono<String> producirBolas() {
+        //Se devuelve un mono que se ejecuta de manera asíncrona y se encarga de crear 100 bolas
         return Mono.fromCallable(() -> {
             estacionTrabajoBola.setCantidad(100);
             estacionTrabajoBola.crearComponente();
@@ -38,6 +39,7 @@ public class EstacionTrabajoController {
     //Metodo que inicia la producción de tableros
     @PostMapping("/producir-tablero")
     public Mono<String> producirTablero() {
+        //Se devuelve un mono que se ejecuta de manera asíncrona y se encarga de crear un tablero
         return Mono.fromCallable(() -> {
             estacionTrabajoTablero.crearComponente();
             return "Producción de tablero iniciada";
