@@ -50,9 +50,9 @@ public class Bola implements Componente, Runnable {
             }
 
             Platform.runLater(() -> {
-                int containerIndex = (int) ((shape.getLayoutX() - 60) / 40);
+                int containerIndex = (int) ((shape.getLayoutX() - 100) / 40);
                 if (containerIndex >= 0 && containerIndex < 10) {
-                    int containerX = containerIndex * 40 + 60;
+                    int containerX = containerIndex * 40 + 100;
                     shape.setLayoutX(containerX);
                     shape.setLayoutY(400);
                     Visualizacion.getInstance().actualizarHistograma(containerIndex);

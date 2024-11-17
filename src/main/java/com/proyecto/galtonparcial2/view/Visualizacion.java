@@ -68,12 +68,12 @@ public class Visualizacion extends Application {
         //Bucle para crear las barras del histograma y los textos de los conteos de bolas
         for (int i = 0; i < histogramBars.length; i++) {
             histogramBars[i] = new Rectangle(40, 0, Color.GREEN);
-            histogramBars[i].setLayoutX(60 + i * 40);
+            histogramBars[i].setLayoutX(100 + i * 40);
             histogramBars[i].setLayoutY(750);
             root.getChildren().add(histogramBars[i]);
 
             ballCounts[i] = new Text("0");
-            ballCounts[i].setLayoutX(75 + i * 40);
+            ballCounts[i].setLayoutX(115 + i * 40);
             ballCounts[i].setLayoutY(750);
             root.getChildren().add(ballCounts[i]);
         }
